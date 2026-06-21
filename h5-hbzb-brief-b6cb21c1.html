@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑白直播 · 信息卡片说明页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: #f4f5f7;
+            color: #1e1e2a;
+            line-height: 1.6;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(145deg, #0e0f1a 0%, #1b1d2e 100%);
+            padding: 5rem 1.5rem 3.5rem;
+            text-align: center;
+            color: #eaeef2;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(220, 180, 80, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: #bcc5d0;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: #2f3349;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #cbd2dc;
+            margin-top: 1rem;
+        }
+
+        /* 正文浅色区 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem 1.5rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: transform 0.18s ease, box-shadow 0.2s;
+            border: 1px solid #eff0f4;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #12131a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 span {
+            display: inline-flex;
+            background: #e9ecf3;
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .card p, .card li {
+            color: #3b3d4a;
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.8rem 0 0;
+        }
+
+        .card ul li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .card ul li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: #b1975a;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* 强调色链接 — 金色系 */
+        a {
+            color: #b5813a;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s, color 0.15s;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #8f662a;
+            border-bottom-color: #dbaa5b;
+        }
+
+        .inline-link-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 2rem 2rem 2.5rem;
+            margin: 2rem 0 2.8rem;
+            border-left: 5px solid #c9974a;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .inline-link-section p {
+            font-size: 1rem;
+            max-width: 650px;
+        }
+
+        .faq-block {
+            background: #ffffff;
+            padding: 1.8rem 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-block h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #14151f;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.3px;
+        }
+
+        .faq-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #22232e;
+            margin-bottom: 0.15rem;
+            font-size: 0.95rem;
+        }
+
+        .faq-item p {
+            margin: 0;
+            color: #474954;
+            font-size: 0.92rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e4e6ed;
+            margin: 1.5rem 0;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #6b6d7c;
+            font-size: 0.85rem;
+            padding: 2rem 0 1rem;
+            border-top: 1px solid #e2e4ec;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 3rem 1rem 2.5rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 1.5rem 1rem 2.5rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .inline-link-section {
+                padding: 1.5rem;
+            }
+            .faq-block {
+                padding: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>黑白直播 · 信息卡片</h1>
+    <p>赛事动态、对照查询、延伸阅读 —— 围绕使用场景整理的一份简明说明页</p>
+    <span class="badge">日常用途 · 信息卡</span>
+</section>
+
+<div class="container">
+
+    <!-- 主视觉 / 用途卡片 -->
+    <div class="card-grid">
+        <div class="card">
+            <h3><span>📋</span> 快速对照·查询</h3>
+            <p>遇到比赛日程、球队状态或实时比分时，很多人会打开常用站点做横向对比。适合赛前准备、赛中跟进或赛后数据整理。</p>
+        </div>
+        <div class="card">
+            <h3><span>📖</span> 延伸阅读</h3>
+            <p>除了即时信息，也适合查看赛事回顾、排行榜变动、选手统计等延展内容。对于想要更深入了解联赛动态的人来说，是一个可以反复浏览的资料入口。</p>
+        </div>
+        <div class="card">
+            <h3><span>👥</span> 适合人群</h3>
+            <ul>
+                <li>日常关注赛事、需要快速查对信息的球迷</li>
+                <li>喜欢横向对比不同场次数据的分析型用户</li>
+                <li>习惯在多个页面之间切换、做补充阅读的观众</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 自然链接段落（核心要求：可见文本必须为「黑白直播」，无进入/查看等词） -->
+    <div class="inline-link-section">
+        <p>在日常浏览中，不少人习惯打开<a href="https://h5-hbzb.com">黑白直播</a>作为数据对照的参考页面，配合其他信息源一起使用。它适合放在浏览器标签页里随时切回，用来核对赛程、查看比分变动或阅读相关资讯，属于查询型工具类站点。</p>
+    </div>
+
+    <!-- 补充场景 + 提示 -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1.8rem; margin: 0.8rem 0 1.2rem;">
+        <div style="flex: 1; min-width: 200px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: #1d1e2b;">🔍 常见用途</h3>
+            <ul style="list-style: none; padding: 0; color: #3f4251; font-size: 0.95rem;">
+                <li style="padding: 0.2rem 0;">• 比赛日快速确认开球时间</li>
+                <li style="padding: 0.2rem 0;">• 赛后将数据与个人记录做对比</li>
+                <li style="padding: 0.2rem 0;">• 了解近期赛程，辅助观赛安排</li>
+            </ul>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.4rem; color: #1d1e2b;">⚡ 一点提示</h3>
+            <p style="color: #474954; font-size: 0.95rem;">页面信息基于公开赛事数据整理，适合作为参考辅助。实际时间或阵容以现场公告为准，建议多方核对。</p>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-block">
+        <h4>常见问题摘要</h4>
+        <div class="faq-item">
+            <strong>Q：页面上的数据更新频率如何？</strong>
+            <p>通常跟随赛事进程实时刷新，赛后数据会保留一段时间用于回顾。具体更新节奏建议参考站点内说明。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q：适合在手机上使用吗？</strong>
+            <p>整体设计对移动端浏览做了适配，卡片和文字在手机屏幕上阅读也比较清晰，可以随时打开使用。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q：除了比赛信息，还有哪些内容可以看？</strong>
+            <p>常见的联赛积分、射手榜、赛程列表等都有覆盖，适合做横向比较或简单分析。</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 二次链接出现（仍符合可见文本严格为「黑白直播」） -->
+    <p style="font-size: 0.95rem; color: #4d4f5e; max-width: 700px;">
+        如果你平时习惯在多个页面之间对照信息，也可以把<a href="https://h5-hbzb.com">黑白直播</a>加入书签，方便随时切换。
+    </p>
+
+    <div class="footer-note">
+        信息卡片 · 本页内容仅供日常参考 &nbsp;|&nbsp; 保持简单清晰
+    </div>
+</div>
+
+</body>
+</html>
